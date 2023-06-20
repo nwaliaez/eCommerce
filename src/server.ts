@@ -6,6 +6,8 @@ import connectDB from './utils/db';
 
 // Routes
 import auth from './routes/auth';
+import { errorHandler } from './controller/errorHandler';
+import { authenticate } from './utils/authenticate';
 
 const app = express();
 
@@ -16,8 +18,8 @@ const PORT = 5000;
 app.use(bodyParser.json());
 
 // Routes
-app.use('/api/auth', auth);
-
+app.use('/api/auth', authenticate, auth);
+app.use(errorHandler);
 // Server listening on port 5000
 connectDB()
     .then(() => {
