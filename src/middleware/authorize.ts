@@ -4,11 +4,7 @@ import createHttpError from 'http-errors';
 
 dotenv.config();
 
-export const authenticate = (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+export const authorize = (req: Request, res: Response, next: NextFunction) => {
     const authKey = req.headers.authorization;
 
     if (!authKey || authKey !== process.env.AUTHKEY) {

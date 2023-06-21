@@ -1,13 +1,18 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 
 // Db Connection
 import connectDB from './utils/db';
 
 // Routes
 import auth from './routes/auth';
-import { errorHandler } from './controller/errorHandler';
-import { authenticate } from './utils/authenticate';
+import merchant from './routes/merchant';
+import client from './routes/client';
+import { errorHandler } from './middleware/errorHandler';
+import { authorize } from './middleware/authorize';
+import { authenticate } from './middleware/authenticate';
+import { authenticateMerchant } from './middleware/authenticateMerchant';
 
 const app = express();
 
@@ -15,11 +20,18 @@ const app = express();
 const PORT = 5000;
 
 // middleware
+app.use(cookieParser());
 app.use(bodyParser.json());
 
 // Routes
-app.use('/api/auth', authenticate, auth);
+app.use('/api/auth', authorize, auth);
+// TODO: Check authenticateMerchant
+app.use('/api/merchant', authenticate, authenticateMerchant, merchant);
+app.use('/api/client', authenticate, client);
+
+// Error handler
 app.use(errorHandler);
+
 // Server listening on port 5000
 connectDB()
     .then(() => {
