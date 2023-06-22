@@ -98,6 +98,8 @@ export const viewCart = asyncErrorHandler(
         next(createHttpError(404, 'User not found'));
     }
 );
+
+// TODO:
 // Add to wishList
 // Remove from wishlist
 // Product rating
