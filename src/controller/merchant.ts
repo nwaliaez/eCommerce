@@ -24,3 +24,38 @@ export const addProduct = asyncErrorHandler(
         next(createHttpError(401, 'Request not allowed'));
     }
 );
+
+// Delete product
+export const deleteProduct = asyncErrorHandler(
+    async (req: IRequest, res: Response, next: NextFunction) => {
+        const userId = req.userId;
+        const { productId } = req.body;
+        if (userId) {
+            const product = Product.findOneAndDelete({
+                _id: productId,
+                userId: userId,
+            });
+            const deletedProduct = await product.exec();
+            if (deletedProduct) {
+                res.json({ status: 'success', message: 'Product deleted' });
+            } else {
+                next(createHttpError(404, 'Product not found'));
+            }
+        }
+    }
+);
+
+// Get Merchant Products
+export const getProducts = asyncErrorHandler(
+    async (req: IRequest, res: Response, next: NextFunction) => {
+        const userId = req.userId;
+        const { pageNumber, limit } = req.params;
+        const query = Product.find({ userId })
+            .skip((Number(pageNumber) - 1) * Number(limit))
+            .limit(Number(limit));
+        const products = await query.exec();
+        res.json(products);
+    }
+);
+
+//TODO: Update Product

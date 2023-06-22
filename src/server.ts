@@ -25,7 +25,6 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/api/auth', authorize, auth);
-// TODO: Check authenticateMerchant
 app.use('/api/merchant', authenticate, authenticateMerchant, merchant);
 app.use('/api/client', authenticate, client);
 
