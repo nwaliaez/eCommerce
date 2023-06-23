@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --background-primary: #fbfafa;
+    --text-primary: #212020;
+    --text-dark: #656565;
+    --text-info: #b3b3b3;
+    --card-bg-primary: #f2f3f5;
+    --card-bg-secondary: #f8f3f0;
+}
+
+body {
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+}
