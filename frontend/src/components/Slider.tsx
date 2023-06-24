@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import SliderItem from './SliderItem';
+import SliderItem from './ui/SliderItem';
 
 interface SliderProps {}
 

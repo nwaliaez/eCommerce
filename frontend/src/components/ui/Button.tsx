@@ -1,9 +1,9 @@
 import { ButtonHTMLAttributes } from 'react';
 import { FC } from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
-import { cn } from '../../utils/utils';
+import { cn } from '../../../utils/utils';
 
-const buttonVariants = cva(['font-semibold', 'border', 'rounded-md'], {
+const buttonVariants = cva(['border', 'rounded-md', 'max-w-max'], {
     variants: {
         variant: {
             primary: [
@@ -16,7 +16,7 @@ const buttonVariants = cva(['font-semibold', 'border', 'rounded-md'], {
         },
         size: {
             small: ['text-sm', 'py-1', 'px-2'],
-            medium: ['text-base', 'py-2', 'px-4'],
+            medium: ['text-sm', 'py-2', 'px-4'],
         },
     },
     defaultVariants: {

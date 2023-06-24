@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import Image from 'next/image';
+import Text from './Text';
 
 interface SliderItemProps {
     imageSrc: string;
@@ -13,9 +14,9 @@ const SliderItem: FC<SliderItemProps> = ({ imageSrc, title, miniDesc }) => {
             <div>
                 <Image src={imageSrc} height={100} width={100} alt={title} />
             </div>
-            <div className="flex flex-col justify-center">
-                <div>{title}</div>
-                <div className="text-dark">{miniDesc}</div>
+            <div className="flex gap-1 flex-col justify-center">
+                <Text>{title}</Text>
+                <Text variant="infoSm">{miniDesc}</Text>
             </div>
         </div>
     );

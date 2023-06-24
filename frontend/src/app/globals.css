@@ -15,3 +15,7 @@ body {
     background-color: var(--background-primary);
     color: var(--text-primary);
 }
+
+.miniNavLink {
+    @apply text-xs text-secondary flex gap-1 items-center cursor-pointer;
+}
