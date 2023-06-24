@@ -19,8 +19,12 @@ interface HeadingProps
     extends VariantProps<typeof headingVariant>,
         HTMLProps<HTMLDivElement> {}
 
-const Heading: FC<HeadingProps> = ({ title, variant }) => {
-    return <div className={cn(headingVariant({ variant }))}>{title}</div>;
+const Heading: FC<HeadingProps> = ({ title, variant, className }) => {
+    return (
+        <div className={cn(headingVariant({ variant, className }))}>
+            {title}
+        </div>
+    );
 };
 
 export default Heading;

@@ -6,7 +6,7 @@ import { cn } from '../../../utils/utils';
 const descriptionVariant = cva('cursor-pointer', {
     variants: {
         variant: {
-            description: ['text-sm'],
+            description: ['text-xs'],
             productTitle: ['leading-5'],
             price: ['text-xl', 'font-medium'],
             infoSm: ['text-sm', 'text-secondary'],

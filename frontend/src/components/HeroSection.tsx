@@ -1,13 +1,11 @@
 'use client';
 import { FC } from 'react';
 import Button from './ui/Button';
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
-import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import Image from 'next/image';
 import Heading from './ui/Heading';
 import Text from './ui/Text';
 import Badge from './ui/Badge';
-import { StarIcon } from './ui/Icon';
+import { RightArrow, StarIcon } from './ui/Icon';
 
 interface HeroSectionProps {}
 
@@ -46,11 +44,7 @@ const HeroSection: FC<HeroSectionProps> = ({}) => {
                         </Text>
                         <div className="flex items-center gap-2">
                             <div className="flex items-center">
-                                <StarIcon />
-                                <StarIcon />
-                                <StarIcon />
-                                <StarIcon />
-                                <StarIcon />
+                                <StarIcon rating={5} />
                             </div>
                             <Text variant="infoXs">1245 reviews</Text>
                         </div>
@@ -62,7 +56,7 @@ const HeroSection: FC<HeroSectionProps> = ({}) => {
                         </div>
                         <div>
                             <Text variant="infoXs">
-                                View more <ArrowRightAltOutlinedIcon />
+                                View more <RightArrow />
                             </Text>
                         </div>
                     </div>
