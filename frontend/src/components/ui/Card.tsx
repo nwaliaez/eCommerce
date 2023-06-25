@@ -1,8 +1,6 @@
 'use client';
-import { VariantProps, cva } from 'class-variance-authority';
 import Image from 'next/image';
 import { FC, HTMLProps } from 'react';
-import { cn } from '../../../utils/utils';
 import Text from './Text';
 import { StarIcon } from './Icon';
 
@@ -27,7 +25,9 @@ const Card: FC<CardProps> = ({
     type,
 }) => {
     return (
-        <div className={`flex-1 p-7 pt-10 bg-cardPrimary relative`}>
+        <div
+            className={`flex flex-col gap-4 flex-1 p-7 pt-10 bg-cardPrimary relative`}
+        >
             {src && title && (
                 <div
                     className={`relative ${

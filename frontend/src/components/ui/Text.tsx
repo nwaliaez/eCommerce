@@ -8,6 +8,8 @@ const descriptionVariant = cva('cursor-pointer', {
         variant: {
             description: ['text-xs'],
             productTitle: ['leading-5'],
+            titleXl: ['text-xl', 'font-semibold', 'tracking-wide'],
+            titleSm: ['text-sm', 'tracking-wide'],
             price: ['text-xl', 'font-medium'],
             infoSm: ['text-sm', 'text-secondary'],
             infoXs: ['text-xs', 'text-secondary'],

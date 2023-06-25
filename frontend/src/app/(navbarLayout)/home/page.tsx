@@ -10,12 +10,16 @@ import { category } from '@/data/category';
 import MiniBanner from '@/components/ui/MiniBanner';
 import LastViewed from '@/components/LastViewed';
 import BestSeller from '@/components/BestSeller';
+import ProductBanner from '@/components/ui/ProductBanner';
+import SuggestedProducts from '@/components/SuggestedProducts';
+import FooterMenu from '@/components/FooterMenu';
+import Footer from '@/components/Footer';
 
 interface pageProps {}
 
 const Home: FC<pageProps> = ({}) => {
     return (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
             <HeroSection />
 
             <section className="flex gap-5 bg-cardSecondary p-6">
@@ -61,7 +65,36 @@ const Home: FC<pageProps> = ({}) => {
             />
 
             <LastViewed />
+
             <BestSeller />
+
+            <section className="flex gap-4">
+                <ProductBanner />
+                <ProductBanner />
+            </section>
+
+            <SuggestedProducts />
+
+            <section className="flex gap-4 bg-cardSecondary p-6">
+                {slider1.map((data) => (
+                    <SliderItem
+                        key={data.id}
+                        imageSrc={data.src}
+                        title={data.title}
+                        miniDesc={data.desc}
+                    />
+                ))}
+            </section>
+
+            <Banner
+                title="AMAZON DELIVERS TO YOU"
+                desc="Worldwide shipping. We ship to over 100 countries and
+                    regions, right at your doorstep."
+                src="/assets/images/orderBox.png"
+            />
+
+            <FooterMenu />
+            <Footer />
         </div>
     );
 };
