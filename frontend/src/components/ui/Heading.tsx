@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { HTMLProps } from 'react';
 import { FC } from 'react';
-import { cn } from '../../../utils/utils';
+import { cn } from '@/utils/utils';
 
 const headingVariant = cva('', {
     variants: {

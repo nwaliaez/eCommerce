@@ -1,19 +1,16 @@
-import HeroSection from '@/components/HeroSection';
-import SliderItem from '@/components/ui/SliderItem';
 import { FC } from 'react';
-import Banner from '@/components/ui/Banner';
-import { slider1 } from '@/data/slider';
-import { miniBanner1 } from '@/data/miniBanner';
-import Text from '@/components/ui/Text';
-import Card from '@/components/ui/Card';
-import { category } from '@/data/category';
-import MiniBanner from '@/components/ui/MiniBanner';
-import LastViewed from '@/components/LastViewed';
-import BestSeller from '@/components/BestSeller';
-import ProductBanner from '@/components/ui/ProductBanner';
-import SuggestedProducts from '@/components/SuggestedProducts';
-import FooterMenu from '@/components/FooterMenu';
-import Footer from '@/components/Footer';
+import { category, miniBanner1, slider1 } from '@/utils/data';
+import { Text, Card, SliderItem, ProductBanner } from '@/components/ui';
+import {
+    Banner,
+    HeroSection,
+    MiniBanner,
+    LastViewed,
+    BestSeller,
+    SuggestedProducts,
+    FooterMenu,
+    Footer,
+} from '@/components';
 
 interface pageProps {}
 

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Text from './ui/Text';
 import Card from './ui/Card';
-import { lastViewed } from '@/data/lastViewed';
+import { lastViewed } from '@/utils/data';
 
 interface SuggestedProductsProps {}
 

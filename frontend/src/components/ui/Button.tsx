@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 import { FC } from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
-import { cn } from '../../../utils/utils';
+import { cn } from '@/utils/utils';
 
 const buttonVariants = cva(['border', 'rounded-md', 'max-w-max'], {
     variants: {

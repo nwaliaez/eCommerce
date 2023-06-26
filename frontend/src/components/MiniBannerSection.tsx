@@ -1,6 +1,6 @@
 'use client';
 import { FC } from 'react';
-import Banner from './ui/MiniBanner';
+import Banner from './MiniBanner';
 
 interface MiniBannerProps {}
 

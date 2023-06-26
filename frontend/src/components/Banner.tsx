@@ -1,7 +1,7 @@
 import { FC, ImgHTMLAttributes } from 'react';
-import Text from './Text';
-import Button from './Button';
-import Heading from './Heading';
+import Text from './ui/Text';
+import Button from './ui/Button';
+import Heading from './ui/Heading';
 import Image from 'next/image';
 
 interface BannerProps extends ImgHTMLAttributes<HTMLImageElement> {

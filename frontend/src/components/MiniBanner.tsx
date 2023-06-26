@@ -1,9 +1,9 @@
 'use client';
 import { FC, ImgHTMLAttributes } from 'react';
-import { RightArrow } from './Icon';
+import { RightArrow } from './ui/Icon';
 import Image from 'next/image';
-import Button from './Button';
-import Text from './Text';
+import Button from './ui/Button';
+import Text from './ui/Text';
 
 interface MiniBannerProps extends ImgHTMLAttributes<HTMLImageElement> {
     desc: string;
