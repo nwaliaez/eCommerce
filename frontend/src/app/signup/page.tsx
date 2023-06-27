@@ -3,7 +3,8 @@ import { Text } from '@/components';
 import { Input, Button } from '@/components/ui';
 import { LeftArrow } from '@/components/ui/Icon';
 import Link from 'next/link';
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useState } from 'react';
+import validator from 'validator';
 
 interface pageProps {}
 
@@ -13,12 +14,42 @@ const page: FC<pageProps> = ({}) => {
         email: '',
         password: '',
     });
+    interface IErrors {
+        name?: string;
+        email?: string;
+        password?: string;
+    }
+
+    const [errors, setErrors] = useState<IErrors>({});
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormData((prev) => ({
             ...prev,
             [name]: value,
         }));
+    };
+    const { name, email, password } = formData;
+    const validateData = () => {
+        let errors: IErrors = {};
+
+        if (!name) errors.name = 'Name is required';
+
+        if (!validator.isEmail(email)) errors.email = 'Email not valid';
+
+        if (!password) errors.password = 'Password is required';
+        return errors;
+    };
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const errors = validateData();
+        if (Object.keys(errors).length) {
+            setErrors(errors);
+            return;
+        }
+        setErrors({});
+        console.log('Success');
     };
     return (
         <div className="flex flex-col items-center justify-between bg-primary w-screen h-screen p-10">
@@ -39,7 +70,10 @@ const page: FC<pageProps> = ({}) => {
                 <Text variant="price" className="inline-block max-w-max">
                     Sign Up
                 </Text>
-                <form action="" className="flex w-full flex-col gap-5">
+                <form
+                    onSubmit={handleSubmit}
+                    className="flex w-full flex-col gap-5"
+                >
                     <Input
                         variant="underLine"
                         onChange={handleChange}
@@ -47,6 +81,7 @@ const page: FC<pageProps> = ({}) => {
                         name="name"
                         value={formData.name}
                     />
+                    <div className="text-red-500">{errors.name}</div>
                     <Input
                         variant="underLine"
                         placeholder="Email"
@@ -54,6 +89,7 @@ const page: FC<pageProps> = ({}) => {
                         name="email"
                         value={formData.email}
                     />
+                    <div className="text-red-500">{errors.email}</div>
                     <Input
                         variant="underLine"
                         onChange={handleChange}
@@ -62,6 +98,7 @@ const page: FC<pageProps> = ({}) => {
                         placeholder="Password"
                         value={formData.password}
                     />
+                    <div className="text-red-500">{errors.password}</div>
                     <div className="flex justify-between">
                         <Text
                             variant="description"
