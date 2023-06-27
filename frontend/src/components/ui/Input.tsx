@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, InputHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, InputHTMLAttributes, forwardRef } from 'react';
 import { FC } from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '../../utils/utils';
@@ -32,16 +32,21 @@ const inputVariants = cva(['w-full', 'outline-0'], {
 
 interface InputProps
     extends InputHTMLAttributes<HTMLInputElement>,
-        VariantProps<typeof inputVariants> {}
+        VariantProps<typeof inputVariants> {
+    register: any;
+}
 const Input: FC<InputProps> = ({
     title,
     className,
     sizes,
     variant,
+    register,
+    name,
     ...props
 }) => {
     return (
         <input
+            {...register(name)}
             {...props}
             className={cn(inputVariants({ variant, sizes, className }))}
         >

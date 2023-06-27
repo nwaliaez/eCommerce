@@ -3,54 +3,26 @@ import { Text } from '@/components';
 import { Input, Button } from '@/components/ui';
 import { LeftArrow } from '@/components/ui/Icon';
 import Link from 'next/link';
-import { ChangeEvent, FC, FormEvent, useState } from 'react';
-import validator from 'validator';
+import { FC } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 interface pageProps {}
 
-const page: FC<pageProps> = ({}) => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-    });
-    interface IErrors {
-        name?: string;
-        email?: string;
-        password?: string;
-    }
-
-    const [errors, setErrors] = useState<IErrors>({});
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-    const { name, email, password } = formData;
-    const validateData = () => {
-        let errors: IErrors = {};
-
-        if (!name) errors.name = 'Name is required';
-
-        if (!validator.isEmail(email)) errors.email = 'Email not valid';
-
-        if (!password) errors.password = 'Password is required';
-        return errors;
+const Signup: FC<pageProps> = ({}) => {
+    type IForm = {
+        name: string;
+        email: string;
+        password: string;
     };
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const errors = validateData();
-        if (Object.keys(errors).length) {
-            setErrors(errors);
-            return;
-        }
-        setErrors({});
-        console.log('Success');
-    };
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<IForm>();
+
+    const onSubmit: SubmitHandler<IForm> = (data) => console.log(data);
+
     return (
         <div className="flex flex-col items-center justify-between bg-primary w-screen h-screen p-10">
             <div className="flex justify-between container">
@@ -66,39 +38,40 @@ const page: FC<pageProps> = ({}) => {
                     <Button variant="outline" title="Sign In" />
                 </div>
             </div>
+
             <div className="flex flex-col gap-4 items-center bg-cardSecondary rounded-md w-96 p-10">
                 <Text variant="price" className="inline-block max-w-max">
                     Sign Up
                 </Text>
                 <form
-                    onSubmit={handleSubmit}
+                    onSubmit={handleSubmit(onSubmit)}
                     className="flex w-full flex-col gap-5"
                 >
                     <Input
                         variant="underLine"
-                        onChange={handleChange}
                         placeholder="Name"
+                        register={register}
                         name="name"
-                        value={formData.name}
                     />
-                    <div className="text-red-500">{errors.name}</div>
+                    {errors.name && <span>This field is required</span>}
+
                     <Input
                         variant="underLine"
                         placeholder="Email"
-                        onChange={handleChange}
+                        register={register}
                         name="email"
-                        value={formData.email}
                     />
-                    <div className="text-red-500">{errors.email}</div>
+                    {errors.email && <span>This field is required</span>}
+
                     <Input
                         variant="underLine"
-                        onChange={handleChange}
-                        name="password"
                         type="password"
                         placeholder="Password"
-                        value={formData.password}
+                        register={register}
+                        name="password"
                     />
-                    <div className="text-red-500">{errors.password}</div>
+                    {errors.password && <span>This field is required</span>}
+
                     <div className="flex justify-between">
                         <Text
                             variant="description"
@@ -106,10 +79,11 @@ const page: FC<pageProps> = ({}) => {
                         >
                             <input type="checkbox"></input>Remember me?
                         </Text>
-                        <Button variant="primary" title="Login" />
+                        <Button type="submit" variant="primary" title="Login" />
                     </div>
                 </form>
             </div>
+
             <Text variant="titleSm" className="flex">
                 Forgot your Password?
             </Text>
@@ -117,4 +91,4 @@ const page: FC<pageProps> = ({}) => {
     );
 };
 
-export default page;
+export default Signup;
