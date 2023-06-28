@@ -7,10 +7,11 @@ const buttonVariants = cva(['border', 'rounded-md', 'max-w-max'], {
     variants: {
         variant: {
             primary: [
-                'bg-blue-500',
+                'bg-buttonSecondary',
                 'text-white',
                 'border-transparent',
-                'hover:bg-blue-600',
+                'duration-300',
+                'hover:-translate-y-1',
             ],
             outline: ['bg-transparent', 'text-primary', 'border-primary'],
         },

@@ -6,20 +6,35 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+const schema = z
+    .object({
+        name: z.string().min(1, { message: 'Name is required' }),
+        email: z.string().email({ message: 'Please enter a valid Email' }),
+        password: z.string().min(8),
+        confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        message: "Passwords don't match",
+        path: ['confirmPassword'],
+    });
 
 interface pageProps {}
 export interface IForm {
     name: string;
     email: string;
     password: string;
+    confirmPassword: string;
 }
 const Signup: FC<pageProps> = ({}) => {
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<IForm>();
-    console.log(errors);
+    } = useForm<IForm>({ resolver: zodResolver(schema) });
+
     const onSubmit: SubmitHandler<IForm> = (data) => {
         fetch('/api/auth/signup', {
             method: 'POST',
@@ -59,7 +74,7 @@ const Signup: FC<pageProps> = ({}) => {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-4 items-center bg-cardSecondary rounded-md w-96 p-10">
+            <div className="flex flex-col gap-4 items-center bg-cardSecondary rounded-md shadow-lg w-96 p-10">
                 <Text variant="price" className="inline-block max-w-max">
                     Sign Up
                 </Text>
@@ -71,9 +86,7 @@ const Signup: FC<pageProps> = ({}) => {
                         <Input
                             variant="underLine"
                             placeholder="Name"
-                            register={register('name', {
-                                required: 'Name is required',
-                            })}
+                            register={register('name')}
                         />
                         {errors.name?.message && (
                             <Text variant="error" className="ml-2 mt-2">
@@ -82,40 +95,60 @@ const Signup: FC<pageProps> = ({}) => {
                         )}
                     </div>
 
-                    <Input
-                        variant="underLine"
-                        placeholder="Email"
-                        register={register('name', {
-                            required: 'Email is required',
-                        })}
-                    />
-                    {errors.email?.message && (
-                        <Text variant="error" className="ml-2 mt-2">
-                            {errors.email?.message}
-                        </Text>
-                    )}
+                    <div>
+                        <Input
+                            variant="underLine"
+                            placeholder="Email"
+                            register={register('email')}
+                        />
+                        {errors.email?.message && (
+                            <Text variant="error" className="ml-2 mt-2">
+                                {errors.email?.message}
+                            </Text>
+                        )}
+                    </div>
 
-                    <Input
-                        variant="underLine"
-                        type="password"
-                        placeholder="Password"
-                        register={register('name', {
-                            required: 'Password is required',
-                        })}
-                    />
-                    {errors.password?.message && (
-                        <Text variant="error" className="ml-2 mt-2">
-                            {errors.password?.message}
-                        </Text>
-                    )}
+                    <div>
+                        <Input
+                            variant="underLine"
+                            type="password"
+                            placeholder="Password"
+                            register={register('password')}
+                        />
+                        {errors.password?.message && (
+                            <Text variant="error" className="ml-2 mt-2">
+                                {errors.password?.message}
+                            </Text>
+                        )}
+                    </div>
+
+                    <div>
+                        <Input
+                            variant="underLine"
+                            type="password"
+                            placeholder="Confirm Password"
+                            register={register('confirmPassword')}
+                        />
+                        {errors.confirmPassword?.message && (
+                            <Text variant="error" className="ml-2 mt-2">
+                                {errors.confirmPassword?.message}
+                            </Text>
+                        )}
+                    </div>
+
                     <div className="flex justify-between">
                         <Text
                             variant="description"
                             className="flex cursor-default gap-2 items-center"
                         >
-                            <input type="checkbox"></input>Remember me?
+                            <input type="checkbox" id="rememberMe"></input>
+                            <label htmlFor="rememberMe">Remember me?</label>
                         </Text>
-                        <Button type="submit" variant="primary" title="Login" />
+                        <Button
+                            type="submit"
+                            variant="primary"
+                            title="Sign Up"
+                        />
                     </div>
                 </form>
             </div>

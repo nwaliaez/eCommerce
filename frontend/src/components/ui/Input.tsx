@@ -2,7 +2,6 @@ import { InputHTMLAttributes } from 'react';
 import { FC } from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '../../utils/utils';
-import { IForm } from '@/app/signup/page';
 
 const inputVariants = cva(['w-full', 'outline-0'], {
     variants: {
@@ -39,6 +38,7 @@ interface InputProps
 const Input: FC<InputProps> = ({
     title,
     className,
+    type,
     sizes,
     variant,
     register,
@@ -48,6 +48,7 @@ const Input: FC<InputProps> = ({
         <>
             <input
                 {...(register ?? {})}
+                type={type ?? 'text'}
                 {...props}
                 className={cn(inputVariants({ variant, sizes, className }))}
             >

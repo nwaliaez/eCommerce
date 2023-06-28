@@ -11,6 +11,7 @@ module.exports = {
                 primary: 'var(--background-primary)',
                 cardPrimary: 'var(--card-bg-primary)',
                 cardSecondary: 'var(--card-bg-secondary)',
+                buttonSecondary: 'var(--button-bg-secondary)',
             },
             colors: {
                 primary: 'var(--text-primary)',
