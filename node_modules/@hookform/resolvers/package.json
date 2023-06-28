@@ -1,0 +1,259 @@
+{
+  "name": "@hookform/resolvers",
+  "amdName": "hookformResolvers",
+  "version": "3.1.1",
+  "description": "React Hook Form validation resolvers: Yup, Joi, Superstruct, Zod, Vest, Class Validator, io-ts, Nope, computed-types, TypeBox, arktype and Typanion",
+  "main": "dist/resolvers.js",
+  "module": "dist/resolvers.module.js",
+  "umd:main": "dist/resolvers.umd.js",
+  "source": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "umd": "./dist/resolvers.umd.js",
+      "import": "./dist/resolvers.mjs",
+      "require": "./dist/resolvers.js"
+    },
+    "./zod": {
+      "types": "./zod/dist/index.d.ts",
+      "umd": "./zod/dist/zod.umd.js",
+      "import": "./zod/dist/zod.mjs",
+      "require": "./zod/dist/zod.js"
+    },
+    "./typebox": {
+      "types": "./typebox/dist/index.d.ts",
+      "umd": "./typebox/dist/typebox.umd.js",
+      "import": "./typebox/dist/typebox.mjs",
+      "require": "./typebox/dist/typebox.js"
+    },
+    "./yup": {
+      "types": "./yup/dist/index.d.ts",
+      "umd": "./yup/dist/yup.umd.js",
+      "import": "./yup/dist/yup.mjs",
+      "require": "./yup/dist/yup.js"
+    },
+    "./joi": {
+      "types": "./joi/dist/index.d.ts",
+      "umd": "./joi/dist/joi.umd.js",
+      "import": "./joi/dist/joi.mjs",
+      "require": "./joi/dist/joi.js"
+    },
+    "./vest": {
+      "types": "./vest/dist/index.d.ts",
+      "umd": "./vest/dist/vest.umd.js",
+      "import": "./vest/dist/vest.mjs",
+      "require": "./vest/dist/vest.js"
+    },
+    "./superstruct": {
+      "types": "./superstruct/dist/index.d.ts",
+      "umd": "./superstruct/dist/superstruct.umd.js",
+      "import": "./superstruct/dist/superstruct.mjs",
+      "require": "./superstruct/dist/superstruct.js"
+    },
+    "./class-validator": {
+      "types": "./class-validator/dist/index.d.ts",
+      "umd": "./class-validator/dist/class-validator.umd.js",
+      "import": "./class-validator/dist/class-validator.mjs",
+      "require": "./class-validator/dist/class-validator.js"
+    },
+    "./io-ts": {
+      "types": "./io-ts/dist/index.d.ts",
+      "umd": "./io-ts/dist/io-ts.umd.js",
+      "import": "./io-ts/dist/io-ts.mjs",
+      "require": "./io-ts/dist/io-ts.js"
+    },
+    "./nope": {
+      "types": "./nope/dist/index.d.ts",
+      "umd": "./nope/dist/nope.umd.js",
+      "import": "./nope/dist/nope.mjs",
+      "require": "./nope/dist/nope.js"
+    },
+    "./computed-types": {
+      "types": "./computed-types/dist/index.d.ts",
+      "umd": "./computed-types/dist/computed-types.umd.js",
+      "import": "./computed-types/dist/computed-types.mjs",
+      "require": "./computed-types/dist/computed-types.js"
+    },
+    "./typanion": {
+      "types": "./typanion/dist/index.d.ts",
+      "umd": "./typanion/dist/typanion.umd.js",
+      "import": "./typanion/dist/typanion.mjs",
+      "require": "./typanion/dist/typanion.js"
+    },
+    "./ajv": {
+      "types": "./ajv/dist/index.d.ts",
+      "umd": "./ajv/dist/ajv.umd.js",
+      "import": "./ajv/dist/ajv.mjs",
+      "require": "./ajv/dist/ajv.js"
+    },
+    "./arktype": {
+      "types": "./arktype/dist/index.d.ts",
+      "umd": "./arktype/dist/arktype.umd.js",
+      "import": "./arktype/dist/arktype.mjs",
+      "require": "./arktype/dist/arktype.js"
+    },
+    "./package.json": "./package.json",
+    "./*": "./*"
+  },
+  "files": [
+    "dist",
+    "yup/package.json",
+    "yup/src",
+    "yup/dist",
+    "zod/package.json",
+    "zod/src",
+    "zod/dist",
+    "vest/package.json",
+    "vest/src",
+    "vest/dist",
+    "joi/package.json",
+    "joi/src",
+    "joi/dist",
+    "superstruct/package.json",
+    "superstruct/src",
+    "superstruct/dist",
+    "class-validator/package.json",
+    "class-validator/src",
+    "class-validator/dist",
+    "io-ts/package.json",
+    "io-ts/src",
+    "io-ts/dist",
+    "nope/package.json",
+    "nope/src",
+    "nope/dist",
+    "computed-types/package.json",
+    "computed-types/src",
+    "computed-types/dist",
+    "typanion/package.json",
+    "typanion/src",
+    "typanion/dist",
+    "ajv/package.json",
+    "ajv/src",
+    "ajv/dist",
+    "typebox/package.json",
+    "typebox/src",
+    "typebox/dist",
+    "arktype/package.json",
+    "arktype/src",
+    "arktype/dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepare": "run-s build:src build && check-export-map && husky install",
+    "build": "cross-env npm-run-all --parallel 'build:*'",
+    "build:src": "microbundle build --globals react-hook-form=ReactHookForm",
+    "build:zod": "microbundle --cwd zod --globals @hookform/resolvers=hookformResolvers,react-hook-form=ReactHookForm",
+    "build:yup": "microbundle --cwd yup --globals @hookform/resolvers=hookformResolvers,react-hook-form=ReactHookForm",
+    "build:joi": "microbundle --cwd joi --globals @hookform/resolvers=hookformResolvers,react-hook-form=ReactHookForm",
+    "build:superstruct": "microbundle --cwd superstruct --globals @hookform/resolvers=hookformResolvers,react-hook-form=ReactHookForm",
+    "build:io-ts": "microbundle --cwd io-ts --globals @hookform/resolvers=hookformResolvers,react-hook-form=ReactHookForm,fp-ts/Either=Either,fp-ts/function=_function,fp-ts/Option=Option,fp-ts/ReadonlyArray=ReadonlyArray,fp-ts/Semigroup=Semigroup,fp-ts/ReadonlyRecord=ReadonlyRecord",
+    "build:vest": "microbundle --cwd vest --globals @hookform/resolvers=hookformResolvers,react-hook-form=ReactHookForm,vest/promisify=promisify",
+    "build:class-validator": "microbundle --cwd class-validator --globals @hookform/resolvers=hookformResolvers,react-hook-form=ReactHookForm",
+    "build:nope": "microbundle --cwd nope --globals @hookform/resolvers=hookformResolvers,react-hook-form=ReactHookForm",
+    "build:computed-types": "microbundle --cwd computed-types --globals @hookform/resolvers=hookformResolvers,react-hook-form=ReactHookForm",
+    "build:typanion": "microbundle --cwd typanion --globals @hookform/resolvers=hookformResolvers,react-hook-form=ReactHookForm",
+    "build:ajv": "microbundle --cwd ajv --globals @hookform/resolvers=hookformResolvers,react-hook-form=ReactHookForm",
+    "build:typebox": "microbundle --cwd typebox --globals @hookform/resolvers=hookformResolvers,react-hook-form=ReactHookForm,@sinclair/typebox/value=value",
+    "build:arktype": "microbundle --cwd arktype --globals @hookform/resolvers=hookformResolvers,react-hook-form=ReactHookForm",
+    "postbuild": "node ./config/node-13-exports.js",
+    "lint": "eslint . --ext .ts,.js --ignore-path .gitignore",
+    "lint:types": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "check:all": "npm-run-all --parallel lint:* test"
+  },
+  "keywords": [
+    "scheme",
+    "validation",
+    "scheme-validation",
+    "hookform",
+    "react-hook-form",
+    "yup",
+    "joi",
+    "superstruct",
+    "typescript",
+    "zod",
+    "vest",
+    "class-validator",
+    "io-ts",
+    "nope",
+    "computed-types",
+    "typanion",
+    "ajv",
+    "TypeBox",
+    "arktype"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/react-hook-form/resolvers.git"
+  },
+  "author": "bluebill1049 <bluebill1049@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/react-hook-form/resolvers/issues"
+  },
+  "homepage": "https://react-hook-form.com",
+  "devDependencies": {
+    "@sinclair/typebox": "^0.27.6",
+    "@testing-library/dom": "^9.2.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.35",
+    "@types/testing-library__jest-dom": "^5.14.5",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "@vitejs/plugin-react": "^3.1.0",
+    "ajv": "^8.12.0",
+    "ajv-errors": "^3.0.0",
+    "arktype": "1.0.13-alpha",
+    "check-export-map": "^1.3.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "computed-types": "^1.11.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "fp-ts": "^2.13.1",
+    "husky": "^8.0.3",
+    "io-ts": "^2.2.20",
+    "io-ts-types": "^0.5.19",
+    "joi": "^17.9.1",
+    "jsdom": "^21.1.1",
+    "lint-staged": "^13.2.1",
+    "microbundle": "^0.15.1",
+    "monocle-ts": "^2.3.13",
+    "newtype-ts": "^0.3.5",
+    "nope-validator": "^1.0.4",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
+    "reflect-metadata": "^0.1.13",
+    "superstruct": "^1.0.3",
+    "typanion": "^3.12.1",
+    "typescript": "^5.0.4",
+    "vest": "^4.6.9",
+    "vite": "^4.2.1",
+    "vite-tsconfig-paths": "^4.2.0",
+    "vitest": "^0.30.1",
+    "yup": "^1.1.0",
+    "zod": "^3.21.4"
+  },
+  "peerDependencies": {
+    "react-hook-form": "^7.0.0"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "pnpm lint --fix"
+    ],
+    "*.{md,json,yml}": [
+      "prettier --write"
+    ]
+  }
+}

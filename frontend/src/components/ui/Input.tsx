@@ -1,7 +1,8 @@
-import { ButtonHTMLAttributes, InputHTMLAttributes, forwardRef } from 'react';
+import { InputHTMLAttributes } from 'react';
 import { FC } from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '../../utils/utils';
+import { IForm } from '@/app/signup/page';
 
 const inputVariants = cva(['w-full', 'outline-0'], {
     variants: {
@@ -33,7 +34,7 @@ const inputVariants = cva(['w-full', 'outline-0'], {
 interface InputProps
     extends InputHTMLAttributes<HTMLInputElement>,
         VariantProps<typeof inputVariants> {
-    register: any;
+    register?: unknown;
 }
 const Input: FC<InputProps> = ({
     title,
@@ -41,17 +42,18 @@ const Input: FC<InputProps> = ({
     sizes,
     variant,
     register,
-    name,
     ...props
 }) => {
     return (
-        <input
-            {...register(name)}
-            {...props}
-            className={cn(inputVariants({ variant, sizes, className }))}
-        >
-            {title}
-        </input>
+        <>
+            <input
+                {...(register ?? {})}
+                {...props}
+                className={cn(inputVariants({ variant, sizes, className }))}
+            >
+                {title}
+            </input>
+        </>
     );
 };
 

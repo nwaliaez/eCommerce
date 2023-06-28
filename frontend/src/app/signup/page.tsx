@@ -5,23 +5,43 @@ import { LeftArrow } from '@/components/ui/Icon';
 import Link from 'next/link';
 import { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { ToastContainer, toast } from 'react-toastify';
 
 interface pageProps {}
-
+export interface IForm {
+    name: string;
+    email: string;
+    password: string;
+}
 const Signup: FC<pageProps> = ({}) => {
-    type IForm = {
-        name: string;
-        email: string;
-        password: string;
-    };
-
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<IForm>();
+    console.log(errors);
+    const onSubmit: SubmitHandler<IForm> = (data) => {
+        fetch('/api/auth/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: process.env.NEXT_PUBLIC_APIAUTH!,
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                if (data?.status == 'failed') {
+                    return toast('Failed');
+                }
 
-    const onSubmit: SubmitHandler<IForm> = (data) => console.log(data);
+                toast('Success');
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 
     return (
         <div className="flex flex-col items-center justify-between bg-primary w-screen h-screen p-10">
@@ -47,31 +67,47 @@ const Signup: FC<pageProps> = ({}) => {
                     onSubmit={handleSubmit(onSubmit)}
                     className="flex w-full flex-col gap-5"
                 >
-                    <Input
-                        variant="underLine"
-                        placeholder="Name"
-                        register={register}
-                        name="name"
-                    />
-                    {errors.name && <span>This field is required</span>}
+                    <div>
+                        <Input
+                            variant="underLine"
+                            placeholder="Name"
+                            register={register('name', {
+                                required: 'Name is required',
+                            })}
+                        />
+                        {errors.name?.message && (
+                            <Text variant="error" className="ml-2 mt-2">
+                                {errors.name?.message}
+                            </Text>
+                        )}
+                    </div>
 
                     <Input
                         variant="underLine"
                         placeholder="Email"
-                        register={register}
-                        name="email"
+                        register={register('name', {
+                            required: 'Email is required',
+                        })}
                     />
-                    {errors.email && <span>This field is required</span>}
+                    {errors.email?.message && (
+                        <Text variant="error" className="ml-2 mt-2">
+                            {errors.email?.message}
+                        </Text>
+                    )}
 
                     <Input
                         variant="underLine"
                         type="password"
                         placeholder="Password"
-                        register={register}
-                        name="password"
+                        register={register('name', {
+                            required: 'Password is required',
+                        })}
                     />
-                    {errors.password && <span>This field is required</span>}
-
+                    {errors.password?.message && (
+                        <Text variant="error" className="ml-2 mt-2">
+                            {errors.password?.message}
+                        </Text>
+                    )}
                     <div className="flex justify-between">
                         <Text
                             variant="description"
@@ -83,6 +119,7 @@ const Signup: FC<pageProps> = ({}) => {
                     </div>
                 </form>
             </div>
+            <ToastContainer />
 
             <Text variant="titleSm" className="flex">
                 Forgot your Password?

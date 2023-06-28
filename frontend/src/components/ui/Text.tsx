@@ -13,6 +13,7 @@ const descriptionVariant = cva('cursor-pointer', {
             price: ['text-xl', 'font-medium'],
             infoSm: ['text-sm', 'text-secondary'],
             infoXs: ['text-xs', 'text-secondary'],
+            error: ['text-xs', 'text-red-500'],
         },
     },
     defaultVariants: {
