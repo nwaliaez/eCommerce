@@ -1,61 +1,32 @@
 'use client';
 import { Text } from '@/components';
-import { Input, Button } from '@/components/ui';
+import { Button } from '@/components/ui';
 import { LeftArrow } from '@/components/ui/Icon';
 import Link from 'next/link';
 import { FC } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-
-const schema = z
-    .object({
-        name: z.string().min(1, { message: 'Name is required' }),
-        email: z.string().email({ message: 'Please enter a valid Email' }),
-        password: z.string().min(8),
-        confirmPassword: z.string(),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-        message: "Passwords don't match",
-        path: ['confirmPassword'],
-    });
+import { SubmitHandler } from 'react-hook-form';
+import SignupForm, { IForm } from '@/components/SignupForm/page';
 
 interface pageProps {}
-export interface IForm {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
-const Signup: FC<pageProps> = ({}) => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<IForm>({ resolver: zodResolver(schema) });
 
-    const onSubmit: SubmitHandler<IForm> = (data) => {
-        fetch('/api/auth/signup', {
+const Signup: FC<pageProps> = ({}) => {
+    const onSubmitReadt: SubmitHandler<IForm> = async (data) => {
+        const response = await fetch('/api/auth/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: process.env.NEXT_PUBLIC_APIAUTH!,
             },
             body: JSON.stringify(data),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                if (data?.status == 'failed') {
-                    return toast('Failed');
-                }
+        });
+        const result = await response.json();
 
-                toast('Success');
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        if (result?.status == 'failed') {
+            return toast('Failed');
+        }
+
+        toast('Success');
     };
 
     return (
@@ -74,84 +45,7 @@ const Signup: FC<pageProps> = ({}) => {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-4 items-center bg-cardSecondary rounded-md shadow-lg w-96 p-10">
-                <Text variant="price" className="inline-block max-w-max">
-                    Sign Up
-                </Text>
-                <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="flex w-full flex-col gap-5"
-                >
-                    <div>
-                        <Input
-                            variant="underLine"
-                            placeholder="Name"
-                            register={register('name')}
-                        />
-                        {errors.name?.message && (
-                            <Text variant="error" className="ml-2 mt-2">
-                                {errors.name?.message}
-                            </Text>
-                        )}
-                    </div>
-
-                    <div>
-                        <Input
-                            variant="underLine"
-                            placeholder="Email"
-                            register={register('email')}
-                        />
-                        {errors.email?.message && (
-                            <Text variant="error" className="ml-2 mt-2">
-                                {errors.email?.message}
-                            </Text>
-                        )}
-                    </div>
-
-                    <div>
-                        <Input
-                            variant="underLine"
-                            type="password"
-                            placeholder="Password"
-                            register={register('password')}
-                        />
-                        {errors.password?.message && (
-                            <Text variant="error" className="ml-2 mt-2">
-                                {errors.password?.message}
-                            </Text>
-                        )}
-                    </div>
-
-                    <div>
-                        <Input
-                            variant="underLine"
-                            type="password"
-                            placeholder="Confirm Password"
-                            register={register('confirmPassword')}
-                        />
-                        {errors.confirmPassword?.message && (
-                            <Text variant="error" className="ml-2 mt-2">
-                                {errors.confirmPassword?.message}
-                            </Text>
-                        )}
-                    </div>
-
-                    <div className="flex justify-between">
-                        <Text
-                            variant="description"
-                            className="flex cursor-default gap-2 items-center"
-                        >
-                            <input type="checkbox" id="rememberMe"></input>
-                            <label htmlFor="rememberMe">Remember me?</label>
-                        </Text>
-                        <Button
-                            type="submit"
-                            variant="primary"
-                            title="Sign Up"
-                        />
-                    </div>
-                </form>
-            </div>
+            <SignupForm onSubmitReady={onSubmitReadt} />
             <ToastContainer />
 
             <Text variant="titleSm" className="flex">
