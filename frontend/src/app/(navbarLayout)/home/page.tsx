@@ -1,3 +1,4 @@
+'use client';
 import { FC } from 'react';
 import { category, miniBanner1, slider1 } from '@/utils/data';
 import { Text, Card, SliderItem, ProductBanner } from '@/components/ui';
@@ -11,14 +12,20 @@ import {
     FooterMenu,
     Footer,
 } from '@/components';
+import { useSession } from 'next-auth/react';
 
 interface pageProps {}
 
 const Home: FC<pageProps> = ({}) => {
+    const { data, status } = useSession();
+    if (status == 'authenticated') {
+        console.log(data);
+        console.log(status);
+    }
+
     return (
         <div className="flex flex-col gap-4">
             <HeroSection />
-
             <section className="flex gap-5 bg-cardSecondary p-6">
                 {slider1.map((data) => (
                     <SliderItem
@@ -35,6 +42,7 @@ const Home: FC<pageProps> = ({}) => {
                 <div className="flex gap-4 mt-6">
                     {category.map((data) => (
                         <Card
+                            key={data.id}
                             src={data.src}
                             title={data.title}
                             type="category"

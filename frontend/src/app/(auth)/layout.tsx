@@ -15,8 +15,6 @@ interface ILayout {
 }
 
 export default function RootLayout({ path, children }: ILayout) {
-    console.log(children);
-
     return (
         <div className="flex flex-col items-center justify-between bg-primary w-screen h-screen p-10">
             <div className="flex justify-between container">

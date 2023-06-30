@@ -9,7 +9,7 @@ interface AuthNavProps {}
 
 const AuthNav: FC<AuthNavProps> = ({}) => {
     const pathname = usePathname();
-    console.log(pathname);
+
     return (
         <>
             <Text variant="titleSm" className="flex flex-1 items-center">
@@ -25,7 +25,7 @@ const AuthNav: FC<AuthNavProps> = ({}) => {
                     href={pathname == '/login' ? '/signup' : '/login'}
                 >
                     <Text variant="titleSm">
-                        {pathname == 'l/ogin'
+                        {pathname == '/login'
                             ? 'Not a member ?'
                             : 'Already a member ?'}
                     </Text>

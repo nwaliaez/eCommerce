@@ -1,8 +1,4 @@
 'use client';
-import { Text } from '@/components';
-import { Button } from '@/components/ui';
-import { LeftArrow } from '@/components/ui/Icon';
-import Link from 'next/link';
 import { FC } from 'react';
 import { toast } from 'react-toastify';
 import { SubmitHandler } from 'react-hook-form';
