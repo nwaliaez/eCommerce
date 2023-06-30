@@ -37,7 +37,7 @@ export const login = asyncErrorHandler(
                 delete result.password;
                 const token = jwt.sign(result, process.env.JWT_SECRET_KEY!);
                 res.cookie('ezToken', token);
-                res.json({ status: 'Success', message: 'LoggedIn' });
+                res.json({ status: 'Success', ...result });
             } else {
                 next(createHttpError(404, 'User not found'));
             }

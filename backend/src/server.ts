@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 // Db Connection
 import connectDB from './utils/db';
@@ -20,6 +21,11 @@ const app = express();
 const PORT = 5000;
 
 // middleware
+app.use(
+    cors({
+        origin: '*',
+    })
+);
 app.use(cookieParser());
 app.use(bodyParser.json());
 
