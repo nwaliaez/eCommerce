@@ -1,6 +1,5 @@
-import { ToastContainer } from 'react-toastify';
+import { Toaster } from 'react-hot-toast';
 import './globals.css';
-import 'react-toastify/dist/ReactToastify.css';
 import Providers from '@/components/Providers';
 
 export const metadata = {
@@ -17,7 +16,7 @@ export default function RootLayout({
         <html lang="en">
             <body>
                 <Providers>
-                    <ToastContainer limit={3} />
+                    <Toaster />
                     {children}
                 </Providers>
             </body>

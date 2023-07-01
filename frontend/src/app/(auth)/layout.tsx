@@ -1,8 +1,5 @@
 import { Text } from '@/components';
 import AuthNav from '@/components/AuthNav';
-import { Button } from '@/components/ui';
-import { LeftArrow } from '@/components/ui/Icon';
-import Link from 'next/link';
 
 export const metadata = {
     title: 'Create Next App',
@@ -14,7 +11,7 @@ interface ILayout {
     children: React.ReactNode;
 }
 
-export default function RootLayout({ path, children }: ILayout) {
+export default function RootLayout({ children }: ILayout) {
     return (
         <div className="flex flex-col items-center justify-between bg-primary w-screen h-screen p-10">
             <div className="flex justify-between container">
