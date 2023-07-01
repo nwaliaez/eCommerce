@@ -17,11 +17,7 @@ import { useSession } from 'next-auth/react';
 interface pageProps {}
 
 const Home: FC<pageProps> = ({}) => {
-    const { data, status } = useSession();
-    if (status == 'authenticated') {
-        console.log(data);
-        console.log(status);
-    }
+    const { data: session, status } = useSession();
 
     return (
         <div className="flex flex-col gap-4">

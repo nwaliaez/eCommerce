@@ -62,7 +62,6 @@ export const resetPassword = asyncErrorHandler(
                 new: true,
             }
         );
-        console.log(user);
         if (user) {
             res.json({ status: 'Success', message: 'Password changed' });
         } else {

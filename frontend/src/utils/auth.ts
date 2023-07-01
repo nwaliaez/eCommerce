@@ -1,4 +1,4 @@
-import type { NextAuthOptions } from 'next-auth';
+import type { NextAuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { env } from './env';
 
@@ -11,10 +11,7 @@ export const authOptions: NextAuthOptions = {
                 password: {},
             },
             async authorize(credentials) {
-                console.log('credentials');
-                console.log(credentials);
                 if (!credentials?.email || !credentials?.password) {
-                    console.log('invalid');
                     return null;
                 }
                 const response = await fetch(
@@ -33,8 +30,6 @@ export const authOptions: NextAuthOptions = {
                 );
                 const data = await response.json();
                 // Handle the data from the API response
-                console.log('data');
-                console.log(data);
                 return data;
             },
         }),
@@ -47,7 +42,7 @@ export const authOptions: NextAuthOptions = {
         jwt({ token, account, user }) {
             if (account) {
                 token.accessToken = account.access_token;
-                token.id = user.id;
+                if ('_id' in user) token.id = user._id;
             }
             return token;
         },

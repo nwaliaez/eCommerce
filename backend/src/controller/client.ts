@@ -37,9 +37,7 @@ export const getProducts = asyncErrorHandler(
 // Get products by category with default sorting
 export const getProductsByCategory = asyncErrorHandler(
     async (req: Request, res: Response, next: NextFunction) => {
-        console.log(req.params);
         const { category, pageNumber, limit } = req.query;
-        console.log(category);
         const query = Product.find({ category: category })
             .sort({ createdAt: -1 })
             .skip((Number(pageNumber) - 1) * Number(limit))

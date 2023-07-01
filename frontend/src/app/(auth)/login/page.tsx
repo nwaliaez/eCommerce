@@ -23,15 +23,11 @@ const LoginForm: FC<ILoginForm> = () => {
     } = useForm<IForm>({ resolver: zodResolver(schema) });
 
     const onSubmitReady = async (data: IForm) => {
-        console.log('data');
-        console.log(data);
         const res = await signIn('credentials', {
             email: data.email,
             password: data.password,
             callbackUrl: '/home',
         });
-        console.log('res');
-        console.log(res);
     };
     return (
         <div className="flex flex-col gap-4 items-center bg-cardSecondary rounded-md shadow-lg w-96 p-10">

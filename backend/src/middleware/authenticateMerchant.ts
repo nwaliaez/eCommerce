@@ -12,14 +12,11 @@ export interface IRequest extends Request {
 export const authenticateMerchant = asyncErrorHandler(
     async (req: IRequest, res: Response, next: NextFunction) => {
         const userId = req.userId;
-        console.log(req.userId);
 
         // Check in DB
         const merchant: IMerchant | null = await Merchant.findOne({ userId });
-        console.log(merchant);
 
         if (merchant) {
-            console.log(merchant);
             return next();
         }
         next(createHttpError(401, 'Only merchants are allowed'));
