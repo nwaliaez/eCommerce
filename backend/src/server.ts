@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import { v2 as cloudinary } from 'cloudinary';
 
 // Db Connection
 import connectDB from './utils/db';
@@ -24,11 +25,17 @@ const PORT = 5000;
 app.use(
     cors({
         origin: '*',
+        credentials: true,
     })
 );
 app.use(cookieParser());
-app.use(bodyParser.json());
-
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+cloudinary.config({
+    cloud_name: 'dwdazrpl6',
+    api_key: '642851176989667',
+    api_secret: 'bYrGDnRxeHNl2o_gppNWDa2CvK4',
+});
 // Routes
 app.use('/api/auth', authorize, auth);
 app.use('/api/merchant', authenticate, authenticateMerchant, merchant);

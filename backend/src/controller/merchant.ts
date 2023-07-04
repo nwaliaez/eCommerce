@@ -3,12 +3,17 @@ import asyncErrorHandler from '../utils/asyncErrorHandler';
 import Product, { IProduct } from '../models/Product';
 import { IRequest } from '../middleware/authenticateMerchant';
 import createHttpError from 'http-errors';
+import uploadImage from '../utils/uploadImage';
 
 // Add Product
 export const addProduct = asyncErrorHandler(
     async (req: IRequest, res: Response, next: NextFunction) => {
         const userId = req.userId;
-        const { name, category, description, price, imageUrl } = req.body;
+        const { name, category, description, price, base64Image } = req.body;
+        const imageUrl = await uploadImage(base64Image);
+        if (typeof imageUrl != 'string') {
+            return next(createHttpError(500, 'Unknow error occured'));
+        }
         if (userId) {
             const product = new Product<IProduct>({
                 name,

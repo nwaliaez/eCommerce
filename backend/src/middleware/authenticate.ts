@@ -12,7 +12,7 @@ export interface IRequest extends Request {
 }
 export const authenticate = asyncErrorHandler(
     async (req: IRequest, res: Response, next: NextFunction) => {
-        const token = req.cookies.ezToken;
+        const token = req.headers.authorization;
         if (token) {
             const userData = jwt.verify(token, process.env.JWT_SECRET_KEY!) as {
                 _id: Schema.Types.ObjectId;
@@ -23,7 +23,9 @@ export const authenticate = asyncErrorHandler(
                 req.userId = userData._id;
                 return next();
             }
-            next(createHttpError(401, 'Only merchants are allowed'));
+            return next(createHttpError(401, 'Only merchants are allowed'));
+        } else {
+            return next(createHttpError(404, 'Token not found'));
         }
     }
 );

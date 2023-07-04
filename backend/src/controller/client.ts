@@ -12,10 +12,18 @@ export const becomeMerchant = asyncErrorHandler(
     async (req: IRequest, res: Response, next: NextFunction) => {
         const userId = req.userId;
         const { licenseId } = req.body;
-        if (userId) {
-            const merchant = new Merchant<IMerchant>({ userId, licenseId });
-            const result = await merchant.save();
-            return res.json(result);
+        const merchantExist = await Merchant.findOne({ userId });
+        if (!merchantExist) {
+            if (userId) {
+                const merchant = new Merchant<IMerchant>({ userId, licenseId });
+                const result = await merchant.save();
+                const resObj = result.toObject();
+                return res.status(201).json({ status: 'success', ...resObj });
+            }
+        } else {
+            return res
+                .status(200)
+                .json({ status: 'success', message: 'Already a merchant' });
         }
         next(createHttpError(401, 'Request not allowed'));
     }
