@@ -4,7 +4,9 @@ import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 interface StarIconProps {
     rating?: number;
 }
@@ -30,4 +32,22 @@ export const CircleRightArrow: FC = () => {
 
 export const LeftArrow: FC = () => {
     return <ArrowBackIosIcon />;
+};
+
+export const Rocket: FC = () => {
+    return <RocketLaunchIcon />;
+};
+
+interface IHeart {
+    size?: 'small' | 'inherit' | 'large' | 'medium';
+}
+export const Heart: FC<IHeart> = ({ size }) => {
+    return <FavoriteBorderOutlinedIcon fontSize={size} />;
+};
+
+interface IRemove {
+    className: string;
+}
+export const Remove: FC<IRemove> = ({ className }) => {
+    return <RemoveCircleOutlineIcon className={className} />;
 };

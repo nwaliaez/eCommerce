@@ -7,9 +7,13 @@
     --text-primary: #212020;
     --text-dark: #656565;
     --text-info: #b3b3b3;
+    --card-bg-light: #fff;
     --card-bg-primary: #f2f3f5;
     --card-bg-secondary: #f8f3f0;
-    --button-bg-secondary: #556b2f;
+    --button-bg-secondary: #f9c948;
+    /* Hover Effects */
+    --hover-primary: #f9c948;
+    --hover-secondary: #f2f3f5;
 }
 
 body {
@@ -19,4 +23,24 @@ body {
 
 .miniNavLink {
     @apply text-xs text-secondary flex gap-1 items-center cursor-pointer;
+}
+
+.navLinks > li {
+    padding: 10px 8px;
+    cursor: pointer;
+}
+
+.hoverNavLink > li:first-child {
+    border-radius: 6px 6px 0 0;
+    padding-top: 10px;
+}
+.hoverNavLink > li:last-child {
+    border-radius: 0 0 6px 6px;
+    padding-bottom: 10px;
+}
+.hoverNavLink > li {
+    padding: 10px 20px;
+}
+.hoverNavLink > li:hover {
+    background-color: var(--hover-secondary);
 }

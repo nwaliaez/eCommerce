@@ -5,7 +5,6 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
     const authToken = 'next-auth.session-token';
-    console.log(pathname);
     if (request.cookies.get(authToken)) {
         if (!pathname.startsWith('/login') && !pathname.startsWith('/signup')) {
             return NextResponse.next();
@@ -13,7 +12,11 @@ export function middleware(request: NextRequest) {
             return NextResponse.redirect(new URL('/home', request.url));
         }
     } else {
-        if (pathname.startsWith('/home')) {
+        const secureRoutes = ['/home', '/addProduct', '/dashboard'];
+        const isSecureRoute = secureRoutes.some((route) =>
+            pathname.startsWith(route)
+        );
+        if (isSecureRoute) {
             return NextResponse.redirect(new URL('/login', request.url));
         } else {
             return NextResponse.next();

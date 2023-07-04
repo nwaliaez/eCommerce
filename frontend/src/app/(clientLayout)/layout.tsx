@@ -12,10 +12,10 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="container mx-auto">
+        <>
             <MiniNavbar />
             <Navbar />
-            {children}
-        </div>
+            <div className="container mx-auto">{children}</div>
+        </>
     );
 }

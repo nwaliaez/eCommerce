@@ -8,7 +8,7 @@ const buttonVariants = cva(['border', 'rounded-md', 'max-w-max'], {
         variant: {
             primary: [
                 'bg-buttonSecondary',
-                'text-white',
+                'text-primary',
                 'border-transparent',
                 'duration-300',
                 'hover:-translate-y-1',

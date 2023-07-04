@@ -1,6 +1,6 @@
-import type { NextAuthOptions, User } from 'next-auth';
+import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { env } from './env';
+import { apiRoute } from './apiRoutes';
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -14,20 +14,17 @@ export const authOptions: NextAuthOptions = {
                 if (!credentials?.email || !credentials?.password) {
                     return null;
                 }
-                const response = await fetch(
-                    'http://localhost:5000/api/auth/login',
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: env.NEXT_PUBLIC_APIAUTH,
-                        },
-                        body: JSON.stringify({
-                            email: credentials?.email,
-                            password: credentials?.password,
-                        }),
-                    }
-                );
+                const response = await fetch(apiRoute.login, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: process.env.NEXT_PUBLIC_APIAUTH!,
+                    },
+                    body: JSON.stringify({
+                        email: credentials?.email,
+                        password: credentials?.password,
+                    }),
+                });
                 const data = await response.json();
                 // Handle the data from the API response
                 return data;
@@ -37,12 +34,22 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         session({ session, token }) {
             session.user.id = token.id;
+            session.user.token = token.token;
+            session.user.licenseId = token.licenseId;
+            console.log(session);
+
             return session;
         },
-        jwt({ token, account, user }) {
+        jwt({ token, trigger, session, account, user }) {
             if (account) {
                 token.accessToken = account.access_token;
                 if ('_id' in user) token.id = user._id;
+                if ('token' in user) token.token = user.token;
+                if ('licenseId' in user) token.licenseId = user.licenseId;
+            }
+            console.log(session || 'no');
+            if (trigger === 'update' && session?.licenseId) {
+                token.licenseId = session.licenseId;
             }
             return token;
         },
@@ -53,5 +60,5 @@ export const authOptions: NextAuthOptions = {
     session: {
         strategy: 'jwt',
     },
-    secret: env.JWT_SECRET,
+    secret: process.env.JWT_SECRET!,
 };

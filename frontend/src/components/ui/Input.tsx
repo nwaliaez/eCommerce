@@ -6,11 +6,20 @@ import { cn } from '../../utils/utils';
 const inputVariants = cva(['w-full', 'outline-0'], {
     variants: {
         variant: {
-            primary: [
-                'bg-blue-500',
-                'text-white',
-                'border-transparent',
-                'hover:bg-blue-600',
+            image: [
+                'text-sm',
+                'text-slate-500',
+                'file:mr-4',
+                'file:py-2',
+                'file:px-4',
+                'file:rounded-full',
+                'file:border-0',
+                'file:text-sm',
+                'file:font-semibold',
+                'file:bg-hoverPrimary',
+                'file:text-dark',
+                'hover:file:bg-hoverPrimary',
+                'cursor-pointer',
             ],
             underLine: [
                 'bg-transparent',
@@ -25,7 +34,7 @@ const inputVariants = cva(['w-full', 'outline-0'], {
         },
     },
     defaultVariants: {
-        variant: 'primary',
+        variant: 'underLine',
         sizes: 'medium',
     },
 });
