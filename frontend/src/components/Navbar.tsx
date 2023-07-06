@@ -6,6 +6,8 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import User from './navbar/hoverCards/User';
 import { Heart } from './ui/Icon';
+import Link from 'next/link';
+import { Input } from './ui';
 
 interface NavbarProps {}
 
@@ -33,7 +35,9 @@ const Navbar: FC<NavbarProps> = ({}) => {
             }  flex top-0 left-0 justify-between h-14 items-center text-dark`}
         >
             <ul className="navLinks flex gap-2 cursor-pointer">
-                <li>Logo</li>
+                <li>
+                    <Link href="/home">Logo</Link>
+                </li>
                 <li className="group flex items-center gap-2">
                     <GridViewOutlinedIcon fontSize="small" />
                     All
@@ -45,7 +49,11 @@ const Navbar: FC<NavbarProps> = ({}) => {
             <ul className="navLinks flex">
                 <li className="flex items-center gap-1">
                     <SearchOutlinedIcon fontSize="small" />
-                    Search
+                    <Input
+                        variant="noBorder"
+                        placeholder="Search"
+                        type="text"
+                    />
                 </li>
                 <li className="group flex relative items-center">
                     <PersonOutlineOutlinedIcon

@@ -7,6 +7,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 interface StarIconProps {
     rating?: number;
 }
@@ -50,4 +52,8 @@ interface IRemove {
 }
 export const Remove: FC<IRemove> = ({ className }) => {
     return <RemoveCircleOutlineIcon className={className} />;
+};
+
+export const DotMenu: FC<IRemove> = ({ className }) => {
+    return <MoreVertIcon className={className} />;
 };

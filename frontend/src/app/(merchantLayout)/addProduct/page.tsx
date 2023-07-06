@@ -9,6 +9,7 @@ import { toast } from 'react-hot-toast';
 import { z } from 'zod';
 import { apiRoute } from '@/utils/apiRoutes';
 import { useSession } from 'next-auth/react';
+import Loader from '@/components/ui/Loader';
 
 const schema = z.object({
     name: z.string({
@@ -31,6 +32,7 @@ export type IForm = z.infer<typeof schema>;
 interface pageProps {}
 
 const page: FC<pageProps> = ({}) => {
+    const [loader, setLoader] = useState<boolean>(false);
     const router = useRouter();
     const { data: session, status, update } = useSession();
     const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -57,6 +59,7 @@ const page: FC<pageProps> = ({}) => {
 
     const onSubmitReady = async (data: IForm) => {
         if (status === 'authenticated') {
+            setLoader(true);
             const formData = {
                 name: data.name,
                 category: data.category,
@@ -76,6 +79,7 @@ const page: FC<pageProps> = ({}) => {
             const result = await response.json();
             console.log(result);
             if (result?.status == 'failed') {
+                setLoader(false);
                 return toast.error('Failed');
             }
             toast.success('Product Created');
@@ -158,7 +162,13 @@ const page: FC<pageProps> = ({}) => {
                     />
                 )}
                 <div className="flex justify-end">
-                    <Button type="submit" variant="primary" title="Submit" />
+                    {loader && <Loader />}
+                    <Button
+                        type="submit"
+                        disabled={loader}
+                        variant="primary"
+                        title="Submit"
+                    />
                 </div>
             </form>
         </div>

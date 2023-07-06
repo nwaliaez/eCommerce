@@ -12,6 +12,8 @@ const buttonVariants = cva(['border', 'rounded-md', 'max-w-max'], {
                 'border-transparent',
                 'duration-300',
                 'hover:-translate-y-1',
+                'disabled:opacity-50',
+                'disabled:pointer-events-none',
             ],
             outline: ['bg-transparent', 'text-primary', 'border-primary'],
         },

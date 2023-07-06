@@ -27,6 +27,7 @@ const inputVariants = cva(['w-full', 'outline-0'], {
                 'border-secondary',
                 'focus:border-primary',
             ],
+            noBorder: ['bg-transparent', 'focus:border-b', 'border-secondary'],
         },
         sizes: {
             small: ['text-sm', 'py-1', 'px-2'],
