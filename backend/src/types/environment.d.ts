@@ -6,6 +6,7 @@ declare global {
             JWT_SECRET_KEY: string;
             CLOUD_API_KEY: string;
             CLOUD_API_SECRET: string;
+            CLOUD_NAME: string;
         }
     }
 }
