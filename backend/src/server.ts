@@ -33,8 +33,8 @@ app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 cloudinary.config({
     cloud_name: 'dwdazrpl6',
-    api_key: '642851176989667',
-    api_secret: 'bYrGDnRxeHNl2o_gppNWDa2CvK4',
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET,
 });
 // Routes
 app.use('/api/auth', authorize, auth);
