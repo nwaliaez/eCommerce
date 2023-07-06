@@ -4,4 +4,5 @@ export const apiRoute = {
     addProduct: `${process.env.NEXT_PUBLIC_API_BASE_URL}/merchant/addProduct`,
     getPorducts: `${process.env.NEXT_PUBLIC_API_BASE_URL}/merchant/getProducts?pageNumber=1&limit=10`,
     removeProduct: `${process.env.NEXT_PUBLIC_API_BASE_URL}/merchant/deleteProduct`,
+    getAllProducts: `${process.env.NEXT_PUBLIC_API_BASE_URL}/client/getProducts?pageNumber=1&limit=10`,
 };

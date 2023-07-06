@@ -86,12 +86,6 @@ export const miniBanner1 = [
 
 export const slider1 = [
     {
-        id: 1,
-        title: 'Hi, Tomas',
-        desc: 'recommendations for you',
-        src: '/assets/images/profile.png',
-    },
-    {
         id: 2,
         title: 'Your Orders',
         desc: 'View your orders',

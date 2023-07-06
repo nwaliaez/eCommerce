@@ -18,11 +18,17 @@ interface pageProps {}
 
 const Home: FC<pageProps> = ({}) => {
     const { data: session, status } = useSession();
-
     return (
         <div className="flex flex-col gap-4">
             <HeroSection />
             <section className="flex gap-5 bg-cardSecondary p-6">
+                <SliderItem
+                    key={1}
+                    imageSrc="/assets/images/profile.png"
+                    title={session?.user.name}
+                    miniDesc="recommendations for you"
+                />
+
                 {slider1.map((data) => (
                     <SliderItem
                         key={data.id}
@@ -65,7 +71,7 @@ const Home: FC<pageProps> = ({}) => {
                 src="/assets/images/orderBox.png"
             />
 
-            <LastViewed />
+            {/* <LastViewed /> */}
 
             <BestSeller />
 

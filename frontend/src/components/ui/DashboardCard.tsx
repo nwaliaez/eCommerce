@@ -8,6 +8,7 @@ interface DashboardCardProps extends ImgHTMLAttributes<HTMLImageElement> {
     src: string;
     productId: string;
     removeProducts: (id: string) => void;
+    date: string;
 }
 
 const DashboardCard: FC<DashboardCardProps> = ({
@@ -15,6 +16,7 @@ const DashboardCard: FC<DashboardCardProps> = ({
     productId,
     src,
     removeProducts,
+    date,
 }) => {
     return (
         <div className="flex flex-col gap-5 bg-cardLight rounded-md shadow-md p-5">
@@ -42,7 +44,7 @@ const DashboardCard: FC<DashboardCardProps> = ({
                 <Text variant="price" className="mt-5">
                     {title}
                 </Text>
-                <Text variant="infoXs">Jan 20th, 2023</Text>
+                <Text variant="infoXs">{date}</Text>
             </div>
             <div className="flex items-center justify-between">
                 <Text variant="infoXs">100 Left</Text>

@@ -4,9 +4,11 @@ import Loader from '@/components/ui/Loader';
 import { apiRoute } from '@/utils/apiRoutes';
 import { useSession } from 'next-auth/react';
 import { FC, useEffect, useState } from 'react';
+import { format } from 'date-fns';
+import { dateFormat } from '@/utils/dateFormat';
 
 interface pageProps {}
-interface IProduct {
+export interface IProduct {
     _id: string;
     category: string;
     createdAt: string;
@@ -55,6 +57,7 @@ const page: FC<pageProps> = ({}) => {
                         productId={product._id}
                         src={product.imageUrl}
                         title={product.name}
+                        date={dateFormat(product.createdAt)}
                         removeProducts={removeProduct}
                     />
                 ))}
