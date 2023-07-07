@@ -105,6 +105,15 @@ export const viewCart = asyncErrorHandler(
     }
 );
 
+// Get Cart Count
+export const cartCount = asyncErrorHandler(
+    async (req: IRequest, res: Response, next: NextFunction) => {
+        const userId = req.userId;
+        const count = await Cart.countDocuments({ userId });
+        return res.json(count);
+    }
+);
+
 // TODO:
 // Add to wishList
 // Remove from wishlist

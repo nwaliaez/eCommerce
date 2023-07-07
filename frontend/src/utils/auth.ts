@@ -36,8 +36,6 @@ export const authOptions: NextAuthOptions = {
             session.user.id = token.id;
             session.user.token = token.token;
             session.user.licenseId = token.licenseId;
-            console.log(session);
-
             return session;
         },
         jwt({ token, trigger, session, account, user }) {
@@ -47,7 +45,6 @@ export const authOptions: NextAuthOptions = {
                 if ('token' in user) token.token = user.token;
                 if ('licenseId' in user) token.licenseId = user.licenseId;
             }
-            console.log(session || 'no');
             if (trigger === 'update' && session?.licenseId) {
                 token.licenseId = session.licenseId;
             }

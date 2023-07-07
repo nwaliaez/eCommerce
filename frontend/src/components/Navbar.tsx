@@ -8,12 +8,13 @@ import User from './navbar/hoverCards/User';
 import { Heart } from './ui/Icon';
 import Link from 'next/link';
 import { Input } from './ui';
+import { useCartContext } from './CartContext';
 
 interface NavbarProps {}
 
 const Navbar: FC<NavbarProps> = ({}) => {
     const [isSticky, setIsSticky] = useState<boolean>(false);
-
+    const { itemCount } = useCartContext();
     useEffect(() => {
         const handleScroll = () => {
             const isTop = window.scrollY < 40;
@@ -38,9 +39,14 @@ const Navbar: FC<NavbarProps> = ({}) => {
                 <li>
                     <Link href="/home">Logo</Link>
                 </li>
-                <li className="group flex items-center gap-2">
-                    <GridViewOutlinedIcon fontSize="small" />
-                    All
+                <li className="group ">
+                    <Link
+                        href="/allProducts"
+                        className="flex items-center gap-2"
+                    >
+                        <GridViewOutlinedIcon fontSize="small" />
+                        All
+                    </Link>
                 </li>
                 <li>Today's Deals</li>
                 <li>Gift Cards</li>
@@ -65,8 +71,13 @@ const Navbar: FC<NavbarProps> = ({}) => {
                 <li className="flex items-center">
                     <Heart size="small" />
                 </li>
-                <li className="flex items-center">
-                    <ShoppingCartOutlinedIcon fontSize="small" />
+                <li className=" flex items-center">
+                    <Link href="/cart" className="flex">
+                        <ShoppingCartOutlinedIcon fontSize="small" />
+                        <div className="bg-red-500 rounded-full flex justify-center items-center w-5 h-5 text-white text-xs">
+                            {itemCount}
+                        </div>
+                    </Link>
                 </li>
             </ul>
         </nav>
