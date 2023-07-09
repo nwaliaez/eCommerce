@@ -114,6 +114,19 @@ export const cartCount = asyncErrorHandler(
     }
 );
 
+// Search
+export const search = asyncErrorHandler(async (req, res, next) => {
+    const { searchTerm } = req.params;
+    const results = await Product.find({
+        $or: [
+            { name: { $regex: searchTerm, $options: 'i' } },
+            { description: { $regex: searchTerm, $options: 'i' } },
+        ],
+    }).exec();
+    console.log(results);
+
+    res.json(results);
+});
 // TODO:
 // Add to wishList
 // Remove from wishlist

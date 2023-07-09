@@ -1,5 +1,5 @@
 'use client';
-import { FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
@@ -9,11 +9,20 @@ import { Heart } from './ui/Icon';
 import Link from 'next/link';
 import { Input } from './ui';
 import { useCartContext } from './CartContext';
+import Search from './navbar/hoverCards/Search';
+import { useSession } from 'next-auth/react';
 
 interface NavbarProps {}
-
+export interface searchProduct {
+    imageUrl: string;
+    name: string;
+}
 const Navbar: FC<NavbarProps> = ({}) => {
+    const { data: session, status } = useSession();
     const [isSticky, setIsSticky] = useState<boolean>(false);
+    const [loader, setLoader] = useState<boolean>(false);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResult, setSearchResult] = useState<searchProduct[]>([]);
     const { itemCount } = useCartContext();
     useEffect(() => {
         const handleScroll = () => {
@@ -27,6 +36,36 @@ const Navbar: FC<NavbarProps> = ({}) => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    useEffect(() => {
+        if (status == 'authenticated' && searchTerm) {
+            console.log(session?.user.token);
+
+            const delay = 500;
+
+            const debounceTimer = setTimeout(async () => {
+                const response = await fetch(
+                    `http://localhost:5000/api/client/search/${searchTerm}`,
+                    {
+                        headers: {
+                            'Content-type': 'application/json',
+                            Authorization: session?.user.token,
+                        },
+                    }
+                );
+                const result = await response.json();
+                setSearchResult(result);
+                setLoader(false);
+            }, delay);
+
+            return () => clearTimeout(debounceTimer);
+        }
+    }, [searchTerm]);
+
+    const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+        setLoader(true);
+        setSearchTerm(e.target.value);
+    };
     return (
         <nav
             className={`${
@@ -48,17 +87,25 @@ const Navbar: FC<NavbarProps> = ({}) => {
                         All
                     </Link>
                 </li>
-                <li>Today's Deals</li>
+                {/* <li>Today's Deals</li>
                 <li>Gift Cards</li>
-                <li>Registry & Gifting</li>
+                <li>Registry & Gifting</li> */}
             </ul>
             <ul className="navLinks flex">
-                <li className="flex items-center gap-1">
+                <li className="flex items-center gap-1 relative">
                     <SearchOutlinedIcon fontSize="small" />
                     <Input
                         variant="noBorder"
                         placeholder="Search"
                         type="text"
+                        value={searchTerm}
+                        onChange={handleSearch}
+                    />
+
+                    <Search
+                        data={searchResult}
+                        loading={loader}
+                        visible={!!searchTerm}
                     />
                 </li>
                 <li className="group flex relative items-center">

@@ -11,21 +11,21 @@ interface MiniNavbarProps {}
 const MiniNavbar: FC<MiniNavbarProps> = ({}) => {
     return (
         <div className="flex container mx-auto justify-between pt-3">
-            <Text variant="infoXs">Amazon's response to COVID-19</Text>
+            <Text variant="infoXs">Response to COVID-19</Text>
             <div>
                 <ul className="flex gap-5">
                     <li className="miniNavLink">
                         <LocationOnOutlinedIcon fontSize="small" /> India
-                        <KeyboardArrowDownOutlinedIcon fontSize="small" />
+                        {/* <KeyboardArrowDownOutlinedIcon fontSize="small" /> */}
                     </li>
                     <li className="miniNavLink">
                         <LanguageOutlinedIcon fontSize="small" />
                         ENG
-                        <KeyboardArrowDownOutlinedIcon fontSize="small" />
+                        {/* <KeyboardArrowDownOutlinedIcon fontSize="small" /> */}
                     </li>
                     <li className="miniNavLink">
-                        USD
-                        <KeyboardArrowDownOutlinedIcon fontSize="small" />
+                        Rupees
+                        {/* <KeyboardArrowDownOutlinedIcon fontSize="small" /> */}
                     </li>
                     <BecomeMerchant />
                 </ul>

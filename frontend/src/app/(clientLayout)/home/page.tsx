@@ -13,6 +13,7 @@ import {
     Footer,
 } from '@/components';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 interface pageProps {}
 
@@ -20,7 +21,9 @@ const Home: FC<pageProps> = ({}) => {
     const { data: session, status } = useSession();
     return (
         <div className="flex flex-col gap-4">
-            <HeroSection />
+            <Link href="/allProducts" className="">
+                <HeroSection />
+            </Link>
             <section className="flex gap-5 bg-cardSecondary p-6">
                 <SliderItem
                     key={1}
@@ -82,7 +85,7 @@ const Home: FC<pageProps> = ({}) => {
 
             <SuggestedProducts />
 
-            <section className="flex gap-4 bg-cardSecondary p-6">
+            {/* <section className="flex gap-4 bg-cardSecondary p-6">
                 {slider1.map((data) => (
                     <SliderItem
                         key={data.id}
@@ -91,7 +94,7 @@ const Home: FC<pageProps> = ({}) => {
                         miniDesc={data.desc}
                     />
                 ))}
-            </section>
+            </section> */}
 
             <Banner
                 title="AMAZON DELIVERS TO YOU"
