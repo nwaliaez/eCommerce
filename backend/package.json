@@ -5,7 +5,7 @@
     "license": "MIT",
     "scripts": {
         "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server.ts",
-        "build": "tsc"
+        "build": "npx tsc"
     },
     "dependencies": {
         "@types/bcrypt": "^5.0.0",
