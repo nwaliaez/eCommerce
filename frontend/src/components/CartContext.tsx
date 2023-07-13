@@ -13,7 +13,7 @@ import {
 
 export const CartContext = createContext({
     itemCount: 0,
-    updateCartCount: (count: number) => {},
+    updateCartCount: () => {},
 });
 
 interface CartProviderProps {
@@ -22,24 +22,25 @@ interface CartProviderProps {
 
 export const CartProvider: FC<CartProviderProps> = ({ children }) => {
     const { data: session, status } = useSession();
+
+    const getCartCount = async () => {
+        const response = await fetch(apiRoute.cartCount, {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: session?.user.token,
+            },
+        });
+        const result = await response.json();
+        setItemCount(result);
+    };
     useEffect(() => {
         if (status == 'authenticated') {
-            const getCartCount = async () => {
-                const response = await fetch(apiRoute.cartCount, {
-                    headers: {
-                        'Content-type': 'application/json',
-                        Authorization: session?.user.token,
-                    },
-                });
-                const result = await response.json();
-                setItemCount(result);
-            };
             getCartCount();
         }
     }, [status]);
     const [itemCount, setItemCount] = useState<number>(0);
-    const updateCartCount = (count: number) => {
-        setItemCount(count);
+    const updateCartCount = () => {
+        getCartCount();
     };
     return (
         <CartContext.Provider value={{ itemCount, updateCartCount }}>

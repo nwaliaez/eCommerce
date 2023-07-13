@@ -5,6 +5,7 @@ import { FC, useEffect, useState } from 'react';
 import { dateFormat } from '@/utils/dateFormat';
 import ProductCard from '@/components/ProductCard';
 import { toast } from 'react-hot-toast';
+import { useCartContext } from '@/components/CartContext';
 
 interface pageProps {}
 export interface IProduct {
@@ -20,6 +21,7 @@ export interface IProduct {
 }
 const AllProducts: FC<pageProps> = ({}) => {
     const { data: session, status } = useSession();
+    const { updateCartCount } = useCartContext();
     const [products, setProducts] = useState<IProduct[]>();
 
     const addToCart = async (productId: string) => {
@@ -31,6 +33,7 @@ const AllProducts: FC<pageProps> = ({}) => {
             },
             body: JSON.stringify({ productId, quantity: 1 }),
         });
+        updateCartCount();
         toast.success('Product Added to cart');
     };
     useEffect(() => {
